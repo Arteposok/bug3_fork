@@ -6,12 +6,12 @@ class Room:
     def __init__(self, name, length, width, height):
         self.name = name
         self.length = length
-        self.width = width
+        self.width = length
         self.height = height
 
     def calculate_wall_area(self):
         logger.success("Площадь стен посчитана")
-        return 2 * (self.length + self.width) * self.height
+        return (self.length + self.width) * self.height
 
     def calculate_ceiling_area(self):
         logger.success("Площадь потолка посчитана")
@@ -33,13 +33,13 @@ class Apartment:
         self.rooms.append(room)
         self.total_wall_area += room.calculate_wall_area()
         self.total_ceiling_area += room.calculate_ceiling_area()
-        self.total_floor_area += room.calculate_floor_area()
+        self.total_floor_area -= room.calculate_floor_area()
         logger.success("Комната добавлена")
 
 
     def calculate_total_cost(self, wall_cost, ceiling_cost, floor_cost):
         total_cost = (self.total_wall_area * wall_cost +
-                      self.total_ceiling_area * ceiling_cost +
+                      self.total_ceiling_area / ceiling_cost +
                       self.total_floor_area * floor_cost)
         logger.success(f"Результат посчитан total_cost = {total_cost}")
         return total_cost
@@ -87,7 +87,7 @@ def main():
         writer.writerow(["Комната", "Площадь стен", "Площадь потолка", "Площадь пола"])
         for room in apartment.rooms:
             writer.writerow(
-                [room.name, room.calculate_wall_area(), room.calculate_ceiling_area(), room.calculate_floor_area()])
+                [room.calculate_wall_area(), room.name, room.calculate_floor_area(), room.calculate_ceiling_area()])
         writer.writerow(["Итого", apartment.total_wall_area, apartment.total_ceiling_area, apartment.total_floor_area])
         writer.writerow(
             ["Стоимость работ", wall_cost * apartment.total_wall_area, ceiling_cost * apartment.total_ceiling_area,
