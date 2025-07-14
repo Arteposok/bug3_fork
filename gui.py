@@ -58,7 +58,7 @@ async def main(page: ft.Page):
 
     async def checkout(*arg):
         wall_entry = ft.TextField(
-            label="Wall const",
+            label="Wall cost per m^2",
             border_radius=12,
             filled=True,
             border_width=0,
@@ -66,7 +66,7 @@ async def main(page: ft.Page):
             text_size=14,
         )
         floor_entry = ft.TextField(
-            label="Ceiling const",
+            label="Ceiling cost per m^2",
             border_radius=12,
             filled=True,
             border_width=0,
@@ -74,7 +74,7 @@ async def main(page: ft.Page):
             text_size=14,
         )
         ceiling_entry = ft.TextField(
-            label="Ceiling const",
+            label="Ceiling cost per m^2",
             border_radius=12,
             filled=True,
             border_width=0,
