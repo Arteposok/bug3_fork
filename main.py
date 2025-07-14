@@ -69,6 +69,45 @@ class Apartment(BaseModel):
         return total_cost
 
 
+def checkout(
+    apartment: Apartment,
+    total_cost: float,
+    wall_cost: float,
+    ceiling_cost: float,
+    floor_cost: float,
+):
+    with open("results.csv", mode="w", encoding="utf-8") as file:
+        logger.info("Открыт файл results.csv")
+        writer = csv.writer(file, delimiter=";")
+        writer.writerow(["Room", "Walls' area", "Ceiling area", "Floor area"])
+        for room in apartment.rooms:
+            writer.writerow(
+                [
+                    room.name,
+                    room.calculate_wall_area(),
+                    room.calculate_ceiling_area(),
+                    room.calculate_floor_area(),
+                ]
+            )
+        writer.writerow(
+            [
+                "Итого",
+                apartment.total_wall_area,
+                apartment.total_ceiling_area,
+                apartment.total_floor_area,
+            ]
+        )
+        writer.writerow(
+            [
+                "Стоимость работ",
+                wall_cost * apartment.total_wall_area,
+                ceiling_cost * apartment.total_ceiling_area,
+                floor_cost * apartment.total_floor_area,
+            ]
+        )
+        writer.writerow(["Общая стоимость работ", total_cost])
+
+
 @logger.catch
 def main() -> bool:
     logger.remove()
@@ -105,39 +144,8 @@ def main() -> bool:
     logger.info(f"Пользователь ввёл данные ceiling_cost = {ceiling_cost}")
     floor_cost = float(input("Введите стоимость покрытия пола за квадратный метр: "))
     logger.info(f"Пользователь ввёл данные floor_cost = {floor_cost}")
-
     total_cost = apartment.calculate_total_cost(wall_cost, ceiling_cost, floor_cost)
-
-    with open("results.csv", mode="w", encoding="utf-8") as file:
-        logger.info("Открыт файл results.csv")
-        writer = csv.writer(file, delimiter=";")
-        writer.writerow(["Room", "Walls' area", "Ceiling area", "Floor area"])
-        for room in apartment.rooms:
-            writer.writerow(
-                [
-                    room.name,
-                    room.calculate_wall_area(),
-                    room.calculate_ceiling_area(),
-                    room.calculate_floor_area(),
-                ]
-            )
-        writer.writerow(
-            [
-                "Итого",
-                apartment.total_wall_area,
-                apartment.total_ceiling_area,
-                apartment.total_floor_area,
-            ]
-        )
-        writer.writerow(
-            [
-                "Стоимость работ",
-                wall_cost * apartment.total_wall_area,
-                ceiling_cost * apartment.total_ceiling_area,
-                floor_cost * apartment.total_floor_area,
-            ]
-        )
-        writer.writerow(["Общая стоимость работ", total_cost])
+    checkout(apartment, total_cost, wall_cost, ceiling_cost, floor_cost)
     return True
 
 
