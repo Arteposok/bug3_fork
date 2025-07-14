@@ -92,6 +92,125 @@ class App(BaseModel):
                 rooms.checkout(
                     self.apartment, total_cost, wall_cost, ceiling_cost, floor_cost
                 )
+
+                def ex(*arg):
+                    page.views.pop()
+                    page.update()
+
+                page.views.append(
+                    ft.View(
+                        "/results",
+                        (
+                            ft.Column(
+                                (
+                                    ft.DataTable(
+                                        columns=[
+                                            ft.DataColumn(ft.Text("Room name")),
+                                            ft.DataColumn(ft.Text("Walls' area")),
+                                            ft.DataColumn(ft.Text("Ceiling area")),
+                                            ft.DataColumn(ft.Text("Floor area")),
+                                        ],
+                                        rows=[
+                                            *[
+                                                ft.DataRow(
+                                                    cells=[
+                                                        ft.DataCell(ft.Text(room.name)),
+                                                        ft.DataCell(
+                                                            ft.Text(
+                                                                str(
+                                                                    room.calculate_wall_area()
+                                                                )
+                                                            )
+                                                        ),
+                                                        ft.DataCell(
+                                                            ft.Text(
+                                                                str(
+                                                                    room.calculate_ceiling_area()
+                                                                )
+                                                            )
+                                                        ),
+                                                        ft.DataCell(
+                                                            ft.Text(
+                                                                str(
+                                                                    room.calculate_floor_area()
+                                                                )
+                                                            )
+                                                        ),
+                                                    ]
+                                                )
+                                                for room in self.apartment.rooms
+                                            ],
+                                            ft.DataRow(
+                                                cells=[
+                                                    ft.DataCell(ft.Text("Alltogether")),
+                                                    ft.DataCell(
+                                                        ft.Text(
+                                                            str(
+                                                                self.apartment.total_wall_area
+                                                            )
+                                                        )
+                                                    ),
+                                                    ft.DataCell(
+                                                        ft.Text(
+                                                            str(
+                                                                self.apartment.total_ceiling_area
+                                                            )
+                                                        )
+                                                    ),
+                                                    ft.DataCell(
+                                                        ft.Text(
+                                                            str(
+                                                                self.apartment.total_floor_area
+                                                            )
+                                                        )
+                                                    ),
+                                                ]
+                                            ),
+                                            ft.DataRow(
+                                                cells=[
+                                                    ft.DataCell(ft.Text("Total cost")),
+                                                    ft.DataCell(
+                                                        ft.Text(
+                                                            str(
+                                                                wall_cost
+                                                                * self.apartment.total_wall_area
+                                                            )
+                                                        )
+                                                    ),
+                                                    ft.DataCell(
+                                                        ft.Text(
+                                                            str(
+                                                                ceiling_cost
+                                                                * self.apartment.total_ceiling_area
+                                                            )
+                                                        )
+                                                    ),
+                                                    ft.DataCell(
+                                                        ft.Text(
+                                                            str(
+                                                                floor_cost
+                                                                * self.apartment.total_floor_area
+                                                            )
+                                                        )
+                                                    ),
+                                                ]
+                                            ),
+                                        ],
+                                    ),
+                                    ft.FilledButton(
+                                        text="exit",
+                                        expand=True,
+                                        style=ft.ButtonStyle(
+                                            shape=ft.RoundedRectangleBorder(radius=8),
+                                            padding=20,
+                                        ),
+                                        on_click=ex,
+                                    ),
+                                )
+                            ),
+                        ),
+                    )
+                )
                 page.update()
 
             page.views.append(
