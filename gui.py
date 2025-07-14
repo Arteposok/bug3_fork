@@ -49,6 +49,10 @@ class App(BaseModel):
             text_size=14,
         )
 
+        def ex(*arg):
+            page.views.pop()
+            page.update()
+
         def checkout(*arg):
             wall_entry = ft.TextField(
                 label="Wall const",
@@ -92,10 +96,6 @@ class App(BaseModel):
                 rooms.checkout(
                     self.apartment, total_cost, wall_cost, ceiling_cost, floor_cost
                 )
-
-                def ex(*arg):
-                    page.views.pop()
-                    page.update()
 
                 page.views.append(
                     ft.View(
@@ -275,6 +275,40 @@ class App(BaseModel):
             self.apartment.add_room(room=room)
             page.update()
 
+        page.views.append(
+            ft.View(
+                "/home",
+                (
+                    ft.Container(
+                        ft.Column(
+                            (
+                                ft.Text(
+                                    "Welcome",
+                                    size=50,
+                                    weight=ft.FontWeight.BOLD,
+                                ),
+                                ft.Text(
+                                    "Room Finishing Cost Calculator",
+                                    size=30,
+                                ),
+                                ft.FilledButton(
+                                    text="Start",
+                                    style=ft.ButtonStyle(
+                                        shape=ft.RoundedRectangleBorder(radius=8),
+                                        padding=20,
+                                    ),
+                                    on_click=ex,
+                                ),
+                            ),
+                            alignment=ft.MainAxisAlignment.CENTER,
+                            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                        ),
+                        alignment=ft.alignment.center,
+                        expand=True,
+                    ),
+                ),
+            )
+        )
         page.add(
             ft.Column(
                 (
