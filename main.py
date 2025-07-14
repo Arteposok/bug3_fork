@@ -25,7 +25,7 @@ class Room(BaseModel):
 
     def calculate_wall_area(self) -> float:
         logger.success("Площадь стен посчитана")
-        return (self.length + self.width) * self.height
+        return 2 * (self.length + self.width) * self.height
 
     def calculate_ceiling_area(self) -> float:
         logger.success("Площадь потолка посчитана")
