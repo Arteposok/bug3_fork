@@ -53,6 +53,8 @@ async def main(page: ft.Page):
     )
 
     async def ex(*arg):
+        global apartment
+        apartment = rooms.Apartment()
         page.views.pop()
         page.update()
 

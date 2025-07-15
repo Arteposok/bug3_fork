@@ -343,3 +343,4 @@ UnicodeEncodeError: 'charmap' codec can't encode characters in position 0-4: cha
 2025-07-14 17:25:10.520 | SUCCESS  | __main__:calculate_floor_area:35 - Площадь пола посчитана
 2025-07-14 17:25:10.520 | SUCCESS  | __main__:<module>:147 - Расчёт стоимости окончен. Программа завершена.
 2025-07-14 19:20:11.743 | DEBUG    | __main__:main:76 - Программа инициализирована
+2025-07-14 22:56:18.995 | DEBUG    | __main__:main:115 - Программа инициализирована
