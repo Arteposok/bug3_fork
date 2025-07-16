@@ -15,40 +15,45 @@ async def main(page: ft.Page):
         "5C6BC0",
     )
 
-    page.theme = ft.Theme(color_scheme_seed=themes[0], use_material3=True)
+    page.theme = ft.Theme(
+        color_scheme_seed=themes[0],
+        use_material3=True,
+        font_family="JetBrains Mono",
+    )
     page.adaptive = True
     page.window.width = 500
     page.window.height = 500
+    page.update()
     room_name_entry = ft.TextField(
         label="Room name",
-        border_radius=12,
+        border_radius=4,
         filled=True,
         border_width=0,
-        content_padding=16,
+        content_padding=14,
         text_size=14,
     )
     width_entry = ft.TextField(
         label="Width",
-        border_radius=12,
+        border_radius=4,
         filled=True,
         border_width=0,
-        content_padding=16,
+        content_padding=14,
         text_size=14,
     )
     length_entry = ft.TextField(
         label="Length",
-        border_radius=12,
+        border_radius=4,
         filled=True,
         border_width=0,
-        content_padding=16,
+        content_padding=14,
         text_size=14,
     )
     height_entry = ft.TextField(
         label="Ceiling height",
-        border_radius=12,
+        border_radius=4,
         filled=True,
         border_width=0,
-        content_padding=16,
+        content_padding=14,
         text_size=14,
     )
 
@@ -61,7 +66,7 @@ async def main(page: ft.Page):
     async def checkout(*arg):
         wall_entry = ft.TextField(
             label="Wall cost per m^2",
-            border_radius=12,
+            border_radius=4,
             filled=True,
             border_width=0,
             content_padding=16,
@@ -69,7 +74,7 @@ async def main(page: ft.Page):
         )
         floor_entry = ft.TextField(
             label="Ceiling cost per m^2",
-            border_radius=12,
+            border_radius=4,
             filled=True,
             border_width=0,
             content_padding=16,
@@ -77,7 +82,7 @@ async def main(page: ft.Page):
         )
         ceiling_entry = ft.TextField(
             label="Ceiling cost per m^2",
-            border_radius=12,
+            border_radius=4,
             filled=True,
             border_width=0,
             content_padding=16,
@@ -200,7 +205,7 @@ async def main(page: ft.Page):
                                     text="exit",
                                     expand=True,
                                     style=ft.ButtonStyle(
-                                        shape=ft.RoundedRectangleBorder(radius=8),
+                                        shape=ft.RoundedRectangleBorder(radius=4),
                                         padding=20,
                                     ),
                                     on_click=ex,
@@ -231,14 +236,14 @@ async def main(page: ft.Page):
                                     padding=20,
                                 ),
                                 elevation=4,
-                                shape=ft.RoundedRectangleBorder(radius=12),
+                                shape=ft.RoundedRectangleBorder(radius=4),
                                 margin=ft.margin.symmetric(vertical=10),
                             ),
                             ft.FilledButton(
                                 text="confirm",
                                 expand=True,
                                 style=ft.ButtonStyle(
-                                    shape=ft.RoundedRectangleBorder(radius=8),
+                                    shape=ft.RoundedRectangleBorder(radius=4),
                                     padding=20,
                                 ),
                                 on_click=checkout_confirm,
@@ -288,12 +293,12 @@ async def main(page: ft.Page):
                             ),
                             ft.Text(
                                 "Room Finishing Cost Calculator",
-                                size=30,
+                                size=25,
                             ),
                             ft.FilledButton(
                                 text="Start",
                                 style=ft.ButtonStyle(
-                                    shape=ft.RoundedRectangleBorder(radius=8),
+                                    shape=ft.RoundedRectangleBorder(radius=4),
                                     padding=20,
                                 ),
                                 on_click=ex,
@@ -325,14 +330,14 @@ async def main(page: ft.Page):
                         padding=20,
                     ),
                     elevation=4,
-                    shape=ft.RoundedRectangleBorder(radius=12),
+                    shape=ft.RoundedRectangleBorder(radius=4),
                     margin=ft.margin.symmetric(vertical=10),
                 ),
                 ft.FilledTonalButton(
                     text="add room",
                     expand=True,
                     style=ft.ButtonStyle(
-                        shape=ft.RoundedRectangleBorder(radius=8),
+                        shape=ft.RoundedRectangleBorder(radius=4),
                         padding=20,
                     ),
                     on_click=add_room,
@@ -341,7 +346,7 @@ async def main(page: ft.Page):
                     text="checkout",
                     expand=True,
                     style=ft.ButtonStyle(
-                        shape=ft.RoundedRectangleBorder(radius=8),
+                        shape=ft.RoundedRectangleBorder(radius=4),
                         padding=20,
                     ),
                     on_click=checkout,
